@@ -1,0 +1,24 @@
+def make_reservation(name, nights, available_rooms):
+    if not name.isalpha():
+        raise ValueError("it must contain only letters")
+        
+    if  not 0 <= nights <= 30:
+        raise ValueError("it must contain only numbers")
+        
+    if not available_rooms:
+        raise ValueError("NO ROOMS")
+    return True
+            
+
+
+
+def main():
+    name = input("Name: ")
+    nights = int(input("Nights: "))
+    available_rooms = [101, 102, 103]
+
+    result = make_reservation(name, nights, available_rooms)
+    print(result)
+
+if __name__ == "__main__":
+    main()
