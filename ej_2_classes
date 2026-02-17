@@ -1,0 +1,47 @@
+class User:
+    def __init__(self, username, password, log_in):
+        self.username = username
+        self.password = password
+        self.log_in = log_in
+    
+    def login(self, password):
+        if self.password == password:
+            self.log_in = True
+        else:
+            print("Wrong password")
+    
+    def logout(self):
+        self.log_in = False
+        
+    def change_password(self, old, new):
+        if self.log_in and self.password == old:
+            self.password = new
+        else:
+            print("Not log in yet")
+        
+    def status(self):
+        if self.log_in == True:
+            return f"({self.username} - logged in)"
+        return f"({self.username} - logged out)"
+    
+    
+    
+
+
+
+
+def main():
+    u = User("alex", "1234", False)
+
+    print(u.status())
+
+    u.login("1234")
+    print(u.status())
+
+    u.change_password("1234", "abcd")
+
+    u.logout()
+    print(u.status())
+
+main()
+
