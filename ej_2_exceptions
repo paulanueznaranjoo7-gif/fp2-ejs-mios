@@ -1,0 +1,25 @@
+def check_password(password):
+    if len(password) < 8:
+        raise ValueError("it must has at least 8 characters")
+    lista_c = []
+    for c in password:
+        if c.isdigit():
+            lista_c.append(c)
+            
+    if not lista_c:
+        raise ValueError("it must contain a number")
+        
+    if " " in password:
+        raise ValueError("it cant contain spaces")
+                
+    print("correcta")
+                
+            
+            
+            
+
+
+def main():
+    check_password("Test8888881")
+
+main()
