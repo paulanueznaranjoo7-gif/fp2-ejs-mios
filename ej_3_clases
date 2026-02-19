@@ -1,0 +1,69 @@
+class Product:
+    def __init__(self, name, price, stock):
+        self.name = name
+        self.price = price
+        self.stock = stock
+        
+    def reduce_stock(self, quantity):
+        if quantity > self.stock:
+            print("Not enough stock")
+        self.stock -= quantity
+    
+    def __str__(self):
+        return f"({self.name} - {self.price} - Stock: {self.stock})"
+
+class Cart:
+    def __init__(self):
+        self.items = []
+    
+    def add_product(self, product, quantity):
+        if product.stock > quantity:
+            self.items.append((product, quantity))
+            product.reduce_stock(quantity)
+        else:
+            ("Not enough stock")
+            
+    def total_price(self):
+        for product, quantity in self.items:
+            total = price * quantity
+            return total
+            
+    def show_cart(self):
+        for product, quantity in self.items:
+            print((product), "-", (quantity))
+
+class Order:
+    def __init__(self, cart, paid=False):
+        self.cart = cart
+        self.paid = paid
+        
+    def checkout(self):
+        if not self.cart.items:
+            print("Car is empyt")
+        self.paid = True
+        print("Order complete")
+    
+    def __str__(self):
+        if self.paid:
+            return "Order - paid"
+        return "Order - not paid"
+            
+        
+        
+
+def main():
+    p1 = Product("Laptop", 1000, 5)
+    p2 = Product("Mouse", 50, 10)
+
+    cart = Cart()
+    cart.add_product(p1, 2)
+    cart.add_product(p2, 3)
+
+    cart.show_cart()
+
+    order = Order(cart)
+    order.checkout()
+
+    print(order)
+
+main()
