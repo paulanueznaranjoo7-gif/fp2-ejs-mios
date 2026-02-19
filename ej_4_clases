@@ -1,0 +1,47 @@
+class VendingMachine:
+    
+    def __init__(self, inventory, prices, money=0):
+        self.inventory = inventory
+        self.prices = prices
+        self.money = money
+        
+    def show_products(self):
+        for product, stock in self.inventory.items():
+            for product, prices in self.prices.items():
+                price = self.prices[product]
+                print((product), "-" ,(price), "-" ,(stock))
+                
+    def buy(self, product_name, coins):
+        if product_name not in self.inventory:
+            print("Product nor found")
+            return 
+        if self.inventory[product_name] == 0:
+            print("Out of stock")
+            return
+        if coins < self.prices[product_name]:
+            print("Not enough money")
+            return
+        else:
+            self.inventory[product_name] -= 1
+            self.money += self.prices[product_name]
+            if coins > self.prices[product_name]:
+                change = coins - self.prices[product_name]
+                print("Enjoy")
+            print("Change: ", change)
+            
+                
+
+
+
+def main():
+    vm = VendingMachine(
+        {"water": 3, "cola": 2, "chips": 5},
+        {"water": 1.0, "cola": 1.5, "chips": 2.0}
+    )
+
+    vm.show_products()
+    vm.buy("water", 2.0)
+
+
+main()
+
