@@ -1,0 +1,79 @@
+class Socio:
+    
+    def __init__(self, nombre, edad, cuota_pagada=False):
+        self.nombre = nombre
+        self.edad = edad
+        self.cuota_pagada = cuota_pagada
+    
+        
+    def pagar_cuota(self):
+        if not self.cuota_pagada:
+            self.cuota_pagada = True
+            if self.edad < 16:
+                raise ValueError("EdadInvalidError")
+            if not self.nombre:
+                raise ValueError("SocioNoEncontrado")
+            
+    def __str__(self):
+        if self.pagar_cuota() == True:
+            return f"({self.nombre} = Activo)"
+        return f"({self.nombre} = Moroso)"
+    
+def main():
+    print("=== EJECUCIÓN DE PRUEBA ===")
+
+    socios = [
+        Socio("Laura", 20),
+        Socio("Carlos", 15),
+        Socio("Ana", 25)
+    ]
+
+    # ejemplo: Laura paga
+    socios[0].pagar_cuota()
+
+    x = 0
+    while x != 4:
+        print("\n1. Mostrar socios")
+        print("2. Pagar cuota a un socio")
+        print("3. Mostrar activos")
+        print("4. Salir")
+
+        x = int(input("Elige (1-4): "))
+
+        if x == 1:
+            for s in socios:
+                print(s)
+
+        elif x == 2:
+            nombre = input("Nombre: ")
+            encontrado = False
+            for s in socios:
+                if s.nombre == nombre:
+                    s.pagar_cuota()
+                    print("Cuota pagada.")
+                    encontrado = True
+                    break
+            if not encontrado:
+                print("Socio no encontrado.")
+
+        elif x == 3:
+            print("Activos:")
+            for s in socios:
+                if s.cuota_pagada:
+                    print(s)
+
+        elif x == 4:
+            print("End")
+
+        else:
+            print("Opción inválida.")
+
+
+if __name__ == "__main__":
+    main()
+        
+        
+        
+
+
+    
