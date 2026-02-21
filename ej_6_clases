@@ -1,0 +1,40 @@
+class Nota:
+    def __init__(self, nota1):
+        self.nota1 = nota1
+        
+    def es_aprobado(self):
+        if self.nota1 >= 5:
+            return True
+        return  False
+        
+class Estudiante:
+    def __init__(self, nombre, nota):
+        self.nota = nota
+        self.nombre = nombre
+    
+    def estado(self):
+        n = self.nota.es_aprobado()
+        if n == True:
+            return f"(Aprobado)"
+        return f"(Suspenso)"
+        
+class Universidad:
+    def __init__(self, uni_nombre, estudiante):
+        self.estudiante = estudiante
+        self.uni_nombre = uni_nombre
+    
+    def resumen(self):
+        return f"({self.estudiante.nombre} - {self.estudiante.estado()})"
+        
+def main():
+
+    nota1 = Nota(7)
+    estudiante1 = Estudiante("Laura", nota1)
+    uni = Universidad("UPV", estudiante1)
+
+    print("Universidad:", uni.uni_nombre)
+    print("Resumen:", uni.resumen())
+
+
+if __name__ == "__main__":
+    main()
