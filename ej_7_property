@@ -1,0 +1,55 @@
+class Course:
+    def __init__(self, title, max_students):
+        self.title = title
+        self.max_students = max_students
+        self.students = []
+    
+    @property
+    def title(self):
+        return self._title
+        
+    @title.setter
+    def title(self, value):
+        if not isinstance(value, str) or str == "":
+            raise ValueError("Title must be a non-empty string")
+        self._title = value
+        
+    @property
+    def max_students(self):
+        return self._max_students
+        
+    @max_students.setter
+    def max_students(self, value_s):
+        if not isinstance(value_s, int): 
+            raise TypeError("max_students must be an integer")
+        if value_s < 0:
+            raise ValueError("max_students must be greater than 0")
+        self._max_students = value_s
+        
+    def add_student(self, name):
+        if name == "":
+            raise ValueError("Invalid student name")
+        if self._max_students > 2:
+            raise ValueError("Course is full")
+        
+        self.students.append(name)
+    
+    def remove_students(self, name):
+        if name not in self.students:
+            raise ValueError("Student not found")
+            
+            
+
+if __name__ == "__main__":
+    try:
+        course = Course("Python", 2)
+
+        course.add_student("Ana")
+        course.add_student("Luis")
+
+        print(course.students)
+
+        course.add_student("Maria")   # debería lanzar excepción
+
+    except Exception as e:
+        print("Error:", e)
