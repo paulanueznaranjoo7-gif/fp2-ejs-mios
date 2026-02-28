@@ -1,0 +1,30 @@
+class Mascota:
+    def __init__(self, nombre, tipo):
+        self.nombre = nombre
+        self.tipo = tipo
+        
+    def saludar(self):
+        print("Hola soy", self.nombre)
+    
+class Persona:
+    def __init__(self, nombrep):
+        self.nombrep = nombrep
+        self.mascota = None
+    
+    def adoptar(self, mascota):
+        self.mascota = mascota
+    
+    def presentar_mascota(self):
+        print("mi mascota se llama", self.mascota.nombre)
+        
+        
+        
+
+persona1 = Persona("Ana")
+perro1 = Mascota("Bobby", "perro")
+
+persona1.adoptar(perro1)
+
+persona1.presentar_mascota()
+perro1.saludar()
+    
