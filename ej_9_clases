@@ -1,0 +1,74 @@
+class Curso:
+    def __init__(self, nombre, capacidad):
+        self.nombre = nombre
+        self.capacidad = capacidad
+        self._estudiantes = []
+    
+    @property
+    def capacidad(self):
+        return self._capacidad
+    
+    @capacidad.setter
+    def capacidad(self, valor):
+        if valor < 1:
+            raise ValueError("La capacidad no puede ser menor que 1")
+        self._capacidad = valor
+
+    def matricular(self, estudiante):
+        if not isinstance(estudiante, Estudiante):
+            print("No es un estudiante válido")
+            return
+
+        if len(self._estudiantes) >= self._capacidad:
+            print("Curso lleno")
+            return
+
+        self._estudiantes.append(estudiante)
+        estudiante._curso = self
+
+    def listar_estudiantes(self):
+        for e in self._estudiantes:
+            print(e.nombre)
+        
+class Estudiante:
+    def __init__(self, nombre, edad):
+        self.nombre = nombre
+        self.edad = edad
+        
+    @property
+    def edad(self):
+        return self._edad
+    
+    @edad.setter
+    def edad(self, valoredad):
+        if valoredad < 16:
+            raise ValueError("Edad que no se puede")
+        self._edad = valoredad
+    
+    @property
+    def curso(self):
+        return self._curso
+    
+    @curso.setter
+    def curso(self, curso):
+        if not isinstance(curso, Curso):
+           raise ValueError("Debe ser un objeto Curso")
+        self._curso = curso
+    
+    def inscribirse(self, curso):
+        curso.matricular(self)
+        
+        
+            
+        
+    
+
+curso1 = Curso("Matemáticas", 2)
+
+e1 = Estudiante("Ana", 18)
+e2 = Estudiante("Luis", 20)
+
+e1.inscribirse(curso1)
+e2.inscribirse(curso1)
+
+curso1.listar_estudiantes()
