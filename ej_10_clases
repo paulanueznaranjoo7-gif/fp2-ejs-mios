@@ -1,0 +1,46 @@
+class Arma:
+    def __init__(self, nombre, danio):
+        self.nombre = nombre
+        self.danio = danio
+    
+    @property
+    def danio(self):
+        return self._danio
+    
+    @danio.setter
+    def danio(self, daño):
+        if daño <= 0:
+            raise ValueError("Daño debe ser superior a 0")
+        self._danio = daño
+    
+class Jugador:
+    def __init__(self, nombre, vida):
+        self.nombre = nombre
+        self.vida = vida
+        self.arma = None
+    
+    @property
+    def vida(self):
+        return self._vida
+    
+    @vida.setter
+    def vida(self, vidita):
+        if vidita < 0:
+            raise ValueEror("Vida minima debe ser 0")
+    
+    def equipar(self, arma):
+        self.arma = arma
+        
+    def atacar(self):
+        if self.arma is None:
+            print("No se puede atacar")
+            return
+        print(self.nombre, "ataca con",self.arma.nombre,"y hace", self.arma.danio)
+
+espada = Arma("Espada", 50)
+
+jugador1 = Jugador("Ana", 100)
+
+jugador1.equipar(espada)
+jugador1.atacar()        
+    
