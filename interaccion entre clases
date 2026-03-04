@@ -1,0 +1,57 @@
+class Course:
+    school_name = "tech academy"
+    total_courses = 0
+    def __init__(self, name):
+        self.name = name
+        self.students = []
+    
+    def add_student(self, student):
+        self.students.append(student)
+    
+    @classmethod
+    def get_total_courses(cls):
+        return cls.total_courses
+        
+    @classmethod
+    def change_school_name(cls, name):
+        cls.school_name = name
+    
+    def get_students(self):
+        lista = []
+        for student in self.students:
+            lista.append(student.name)
+        return lista
+        
+class Student:
+    age = 0
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+        
+    def enroll(self, course):
+        course.add_student(self)
+        
+    def get_info(cls):
+        return f"{self.name}({self.age} years old)"
+        
+    
+
+
+
+c1 = Course("Python")
+c2 = Course("Data Science")
+
+s1 = Student("Ana", 22)
+s2 = Student("Luis", 25)
+
+s1.enroll(c1)
+s2.enroll(c1)
+s2.enroll(c2)
+
+print(c1.get_students())
+print(c2.get_students())
+
+print(Course.get_total_courses())
+
+Course.change_school_name("AI Academy")
+print(Course.school_name)       
