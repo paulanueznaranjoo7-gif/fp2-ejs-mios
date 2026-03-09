@@ -1,0 +1,60 @@
+class Astronauta:
+    registro_mision = {
+    "mision": "ARES-7",
+    "astronautas": []
+}
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.__oxigeno = 100
+        self.rango = 1
+        
+        Astronauta.registro_mision["astronautas"].append(self)
+        
+    def trabajar(self, cantidad):
+        self.__oxigeno -= cantidad
+        if self.__oxigeno == 0:
+            self.rango += 1
+            self.__oxigeno = 100
+            
+    def estado(self):
+        print(f"{self.nombre} - Rango {self.rango} - Oxigeno {self.__oxigeno}")
+        
+    @property
+    def oxigeno(self):
+        return self.__oxigeno
+    
+    @classmethod
+    def total_astronautas(cls):
+        return len(cls.registro_mision["astronautas"])
+    
+    @classmethod
+    def astronauta_mas_oxigeno(cls):
+        max = -999
+        maximo = ""
+        for astronauta in cls.registro_mision["astronautas"]:
+            if astronauta.oxigeno > max:
+                max = astronauta.oxigeno
+                maximo = astronauta 
+        return maximo
+        
+    
+a1 = Astronauta("Ana")
+a2 = Astronauta("Luis")
+a3 = Astronauta("Marta")
+
+a1.trabajar(40)
+a1.trabajar(70)
+
+a2.trabajar(20)
+a2.trabajar(30)
+
+a3.trabajar(10)
+
+a1.estado()
+a2.estado()
+a3.estado()
+
+print("Astronautas en misión:", Astronauta.total_astronautas())
+
+print("Más oxígeno:", Astronauta.astronauta_mas_oxigeno().nombre)
+    
