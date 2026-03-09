@@ -1,0 +1,51 @@
+class ClienteBuffet:
+    menu = {"Pizza": 8, "Sushi": 12, "Pasta": 7, "Ensalada": 6}
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.platos = []
+    
+    def servirse(self, plato):
+        if plato in ClienteBuffet.menu:
+            self.platos.append(plato)
+        else:
+            print("Este plato no existe")
+    
+    def estado(self):
+        comidas = ", ".join(self.platos)
+        print(f"{self.nombre} ha comido {comidas}")
+    
+    @property
+    def total_platos(self):
+        return len(self.platos)
+        
+    def cuenta(self):
+        total = 0
+        for clave, valor in self.menu.items():
+            if clave in self.platos:
+                total += valor
+        return total
+            
+        
+    @classmethod
+    def mostrar_menu(cls):
+        print(cls.menu)
+        
+c1 = ClienteBuffet("Ana")
+
+ClienteBuffet.mostrar_menu()
+
+print()
+
+c1.servirse("Pizza")
+c1.servirse("Sushi")
+c1.servirse("Hamburguesa")
+
+print()
+
+c1.estado()
+
+print("Platos comidos:", c1.total_platos)
+
+print()
+
+print("Coste total:", c1.cuenta())            
