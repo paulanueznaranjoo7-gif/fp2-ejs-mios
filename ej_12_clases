@@ -1,0 +1,53 @@
+class Jugador:
+    
+    jugadores = []
+    
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.__puntos = 0
+        self.nivel = 1
+        
+        Jugador.jugadores.append(self)
+    
+    def ganar_puntos(self, cantidad):
+        self.__puntos += cantidad
+        if self.__puntos >= 100:
+            self.__puntos = 0 
+            self.nivel += 1
+        
+    def estado(self):
+        print(f"{self.nombre} - Nivel {self.nivel} - {self.__puntos} puntos")
+        
+    @property
+    def puntos(self):
+        return self.__puntos
+            
+    @classmethod
+    def total_jugadores(cls):
+        return len(cls.jugadores)
+    
+    @classmethod
+    def mejor_jugador(cls):
+        max = -9999
+        maximo = ""
+        for jugador in Jugador.jugadores:
+            if jugador.puntos > max:
+                max = jugador.puntos
+                maximo = jugador
+                return jugador
+                
+        
+j1 = Jugador("Ana")
+j2 = Jugador("Luis")
+
+j1.ganar_puntos(40)
+j1.ganar_puntos(70)
+
+j2.ganar_puntos(50)
+
+j1.estado()
+j2.estado()
+
+print("Jugadores totales:", Jugador.total_jugadores())
+
+print("Mejor jugador:", Jugador.mejor_jugador().nombre)        
