@@ -1,0 +1,71 @@
+class MapaSensores:
+    mapas = 0
+    mapas_creados_ = []
+    def __init__(self, nfilas, ncolumnas):
+        self.__nfilas = nfilas
+        self.__ncolumnas = ncolumnas
+        
+        MapaSensores.mapas += 1
+        MapaSensores.mapas_creados_.append(self)
+        
+        self.__matriz = []
+        for i in range(nfilas):
+            fila = []
+            for j in range(ncolumnas):
+                fila.append(0)
+            self.__matriz.append(fila)
+    
+    @property
+    def nfilas(self):
+        return self.__nfilas
+    
+    @property
+    def ncolumnas(self):
+        return self.__ncolumnas
+    
+    def activar_sensor(self, fila, columna, valor):
+        if  0 > fila > self.__nfilas or 0 > columna > self.__columna:
+            raise IndexError
+        else:
+            self.__matriz[fila][columna] = valor
+    
+    def leer_sensor(self, fila, columna):
+        if  0 > fila > self.__nfilas or 0 > columna > self.__columna:
+            raise IndexError
+        else:
+            return self.__matriz[fila][columna]
+            
+    def reiniciar_sensor(self, fila, columna):
+        if  0 > fila > self.__nfilas or 0 > columna > self.__columna:
+            raise IndexError
+        else:
+            self.__matriz[fila][columna] = 0
+            
+    @classmethod
+    def mapas_creados(cls):
+        return cls.mapas_creados
+    
+    @classmethod
+    def sensor_maximo_global(cls):
+        maximo = -999
+        for mapa in MapaSensores.mapas_creados_:
+            for fila in mapa._MapaSensores__matriz:
+                for valor in fila:
+                    if valor > maximo:
+                        maximo = valor
+        return maximo
+    
+    def __str__(self):
+        return f"{self.__matriz}"
+                
+m1 = MapaSensores(2,3)
+m2 = MapaSensores(2,2)
+
+m1.activar_sensor(0,1,5)
+m1.activar_sensor(1,0,3)
+
+m2.activar_sensor(0,0,8)
+
+print(MapaSensores.sensor_maximo_global())          
+            
+            
