@@ -1,0 +1,102 @@
+class LibroBiblioteca:
+    contador = 0
+    total_libros = 0
+    libros_prestados = []
+    def __init__(self, titulo, autor):
+        self.__titulo = titulo
+        self.__autor = autor
+        self.__codigo_libro = f"LB-{LibroBiblioteca.contador:03d}"
+        self.__prestado = False
+        
+        LibroBiblioteca.contador += 1
+        LibroBiblioteca.total_libros += 1
+        LibroBiblioteca.libros_prestados.append(self)
+    
+    @property
+    def codigo_libro(self):
+        return self.__codigo_libro
+    
+    @property
+    def titulo(self):
+        return self.__titulo
+    
+    @property
+    def autor(self):
+        return self.__autor
+    
+    @property
+    def prestado(self):
+        return self.__prestado
+    
+    def prestar(self):
+        if self.__prestado:
+            raise ValueError
+        self.__prestado = True
+        
+    def devolver(self):
+        if not self.__prestado:
+            raise ValueError
+        self.__prestado = False
+    
+    @classmethod
+    def obtener_total_libros(cls):
+        return cls.total_libros
+    
+    @classmethod
+    def contar_prestados(cls):
+        contador_libros = 0
+        for libro in LibroBiblioteca.libros_prestados:
+            if libro.prestado == True:
+                contador_libros += 1
+        return contador_libros
+            
+            
+            
+    def __str__(self):
+        return f"{self.__codigo_libro} - Titulo : {self.__titulo}, Autor : {self.__autor}, Prestado : {self.__prestado}"
+
+
+
+    # Crear libros
+libro1 = LibroBiblioteca("1984", "George Orwell")
+libro2 = LibroBiblioteca("El Quijote", "Miguel de Cervantes")
+libro3 = LibroBiblioteca("La isla del tesoro", "Robert L. Stevenson")
+
+print("=== Libros creados ===")
+print(libro1)
+print(libro2)
+print(libro3)
+
+print("\n=== Total de libros ===")
+print(LibroBiblioteca.obtener_total_libros())
+
+    # Prestar libros
+print("\n=== Prestando libros ===")
+libro1.prestar()
+libro2.prestar()
+
+print(libro1)
+print(libro2)
+print(libro3)
+
+print("\n=== Libros prestados ===")
+print(LibroBiblioteca.contar_prestados())
+
+# Devolver un libro
+print("\n=== Devolviendo libro ===")
+libro1.devolver()
+print(libro1)
+
+    # Probar errores
+print("\n=== Probando errores ===")
+
+try:
+    libro1.devolver()  # ya está devuelto
+except ValueError as e:
+    print("Error:", e)
+
+try:
+    libro2.prestar()  # ya está prestado
+except ValueError as e:
+    print("Error:", e)
+
