@@ -1,0 +1,50 @@
+class TableroLuces:
+    numero_tableros = 0
+    def __init__(self, nfilas, ncolumnas):
+        self.__nfilas = nfilas
+        self.__ncolumnas = ncolumnas
+    
+        TableroLuces.numero_tableros += 1
+        
+        self.__matriz = []
+        for i in range(nfilas):
+            fila = []
+            for j in range(ncolumnas):
+                fila.append(0)
+            self.__matriz.append(fila)
+                
+    
+    @property
+    def nfilas(self):
+        return self.__nfilas
+    
+    @property
+    def ncolumnas(self):
+        return self.__ncolumnas
+    
+    def encender(self, fila, columna):
+        if self.__matriz[fila][columna] == 1:
+            raise ValueError
+        else:
+            self.__matriz[fila][columna] = 1
+        
+    def apagar(self, fila, columna):
+        if self.__matriz[fila][columna] == 0:
+            raise ValueError
+        else:
+            self.__matriz = 0
+            
+    @classmethod
+    def tableros_creados(cls):
+        TableroLuces.numero_tableros 
+        
+    def __str__(self):
+        return f"{self.__matriz}"
+        
+        
+t1 = TableroLuces(2,3)
+
+t1.encender(0,1)
+t1.encender(1,0)
+
+print(t1)
