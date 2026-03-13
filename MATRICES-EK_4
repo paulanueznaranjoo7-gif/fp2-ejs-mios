@@ -1,0 +1,84 @@
+class Almacen:
+    almacenes = 0
+    def __init__(self, nombre, filas, columnas):
+        self.__nombre = nombre
+        self.__filas = filas
+        self.__columnas = columnas
+        self.__capacidad = filas * columnas
+        
+        Almacen.almacenes += 1
+    
+        self.__matriz = []
+        for i in range (filas):
+            fila = []
+            for j in range(columnas):
+                fila.append(0)
+            self.__matriz.append(fila)
+        
+    @property
+    def nombre(self):
+        return self.__nombre
+    
+    @property
+    def dimensiones(self):
+        return (self.__filas, self.__columnas)
+    
+    @property
+    def capacidad_total(self):
+        return self.__capacidad
+    
+    def almacenar_paquete(self, fila, columna):
+        if fila < 0 or fila >= self.__filas or 0 < columna >= self.__columnas:
+            raise ValueError
+        elif self.__matriz[fila][columna] == 1:
+            raise ValueError
+        self.__matriz[fila][columna] = 1
+    
+    def retirar_paquete(self, fila, columna):
+        if fila < 0 or fila >= self.__filas or 0 < columna >= self.__columnas:
+            raise ValueError
+        elif self.__matriz[fila][columna] == 0:
+            raise ValueError
+        self.__matriz[fila][columna] = 0
+        
+    def ocupacion(self):
+        ocupados = 0
+        for i in range(self.__filas):
+            for j in range(self.__columnas):
+                if self.__matriz[i][j] == 1:
+                    ocupados += 1
+                    
+        return (ocupados / self.__capacidad) * 100
+                
+    @classmethod
+    def total_almacenes(cls):
+        return cls.almacenes
+        
+    def __str__(self):
+        return f"Almacen : {self.__nombre}, Ocupados : {self.ocupacion()}"
+        
+a1 = Almacen("Central", 2, 3)
+a2 = Almacen("Norte", 3, 2)
+
+print("Nombre:", a1.nombre)
+print("Dimensiones:", a1.dimensiones)
+print("Capacidad total:", a1.capacidad_total)
+
+a1.almacenar_paquete(0,1)
+a1.almacenar_paquete(1,2)
+a1.almacenar_paquete(0,0)
+
+a2.almacenar_paquete(2,1)
+
+print("Ocupación a1:", a1.ocupacion())
+print("Ocupación a2:", a2.ocupacion())
+
+a1.retirar_paquete(0,1)
+
+print("Ocupación a1 tras retirar:", a1.ocupacion())
+
+print("Total almacenes:", Almacen.total_almacenes())
+
+print(a1)
+print(a2)            
+        
