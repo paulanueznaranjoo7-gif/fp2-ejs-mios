@@ -1,0 +1,73 @@
+class Biblioteca:
+    __total = 0
+    def __init__(self, nombre_biblioteca):
+        self.__nombre_biblioteca = nombre_biblioteca
+        self.__libros = []
+        
+        Biblioteca.__total += 1
+    
+    
+    @property
+    def nombre(self):
+        return self.__nombre_biblioteca
+    
+    @property
+    def libros(self):
+        return self.__libros
+        
+    def añadir_libro(self, titulo, autor, copias):
+        if copias  < 0:
+            raise ValuError
+        else:
+            self.__libros.append((titulo, autor, copias))
+        
+    def prestar_libro(self, titulo):
+        for i in range(len(self.__libros)):
+            tupla = self.__libros[i]
+            
+            if tupla[0] == None:
+                raise ValueError
+                        
+            if tupla[2] == 0:
+                raise ValueError
+                
+            self.__libros[i] = (tupla[0], tupla[1], tupla[2] - 1)
+            return 
+        
+    def total_libros(self):
+        suma = 0
+        for tupla in self.__libros:
+            suma += tupla[2]
+        return suma
+            
+    @classmethod
+    def total_bibliotecas(cls):
+        return cls.__total
+    
+    def __str__(self):
+        return f'Biblioteca: {self.__nombre_biblioteca}, libros : {self.total_libros()}'
+
+b1 = Biblioteca("Central")
+b2 = Biblioteca("Barrio")
+
+b1.añadir_libro("1984", "Orwell", 3)
+b1.añadir_libro("Dune", "Herbert", 2)
+
+b2.añadir_libro("Fundacion", "Asimov", 4)
+
+print("Libros b1:", b1.libros)
+print("Libros b2:", b2.libros)
+
+b1.prestar_libro("1984")
+
+print("Después de prestar 1984:")
+print(b1.libros)
+
+print("Total copias b1:", b1.total_libros())
+
+print("Total bibliotecas:", Biblioteca.total_bibliotecas())
+
+print(b1)
+print(b2)
+        
+    
