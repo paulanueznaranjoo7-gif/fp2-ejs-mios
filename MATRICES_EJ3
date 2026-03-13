@@ -1,0 +1,62 @@
+class InventarioTienda:
+    tiendas = 0
+    tiendita = []
+    def __init__(self, nombre_tienda):
+        self.__nombre = nombre_tienda
+        self.__productos = []
+    
+        InventarioTienda.tiendas += 1
+        InventarioTienda.tiendita.append(self)
+    
+    @property
+    def nombre_tienda(self):
+        return self.__nombre_tienda
+    
+    @property
+    def productos(self):
+        return self.__productos
+        
+    def añadir_producto(self, nombre, precio, cantidad):
+        if precio < 0:
+            raise ValueError
+        if cantidad < 0:
+            raise ValueError
+        else:
+            self.__productos.append((nombre, precio, cantidad))
+    
+    def vender_producto(self, nombre, cantidad):
+        def vender_producto(self, nombre, cantidad):
+            for i in range(len(self.__productos)):
+                tupla = self.__productos[i]
+        
+            if tupla[0] == nombre:
+                if cantidad > tupla[2]:
+                    raise ValueError
+            
+                self.__productos[i] = (tupla[0], tupla[1], tupla[2] - cantidad)
+                return
+                
+    @classmethod
+    def total_tiendas(cls):
+        return cls.tiendas
+    
+    @classmethod
+    def total_productos(cls):
+        suma = 0
+        for tienda in InventarioTienda.tiendita:
+            suma += len(tienda.productos)
+            return suma
+    
+    def __str__(self):
+        return f" Tienda : {self.__nombre}, Productos : {self.__productos}"
+    
+t1 = InventarioTienda("SuperMarket")
+t2 = InventarioTienda("MiniMarket")
+
+t1.añadir_producto("pan", 1.2, 30)
+t1.añadir_producto("leche", 0.9, 20)
+
+t2.añadir_producto("agua", 0.5, 50)
+
+print("Productos tienda 1:")
+print(t1.productos)
